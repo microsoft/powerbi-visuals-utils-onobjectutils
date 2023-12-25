@@ -37,7 +37,7 @@ export interface CreateVisualSubSelectionFromObjectArgs {
 }
 
 /**
- * Helper tool that meakes it easier for visuals to manage sub-selection.
+ * Helper tool that makes it easier for visuals to manage sub-selection.
  * Provides methods for easily making elements sub-selectable, abstracting away most of the complexity around it
  * For a full implementation, see the HTMLSubSelectionHelper
  */
