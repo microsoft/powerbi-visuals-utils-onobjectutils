@@ -38,8 +38,6 @@ export const SubSelectableTypeAttribute = 'data-sub-selection-type';
 export const SubSelectableDirectEdit = 'data-sub-selection-direct-edit';
 export const SubSelectableSubSelectedAttribute = 'data-sub-selection-sub-selected';
 export const SubSelectableUIAnchorAttribute = 'data-sub-selection-ui-anchor';
-// Used for when the sub-selectable element needs to be restricted by another html element
-export const SubSelectableRestrictOutlineOptionsAttribute = 'data-sub-selection-restrict-outline-options';
 // Used to indicate the element which will restricted the outlines and the type of restriction (clamp or clip)
 export const SubSelectableRestrictingElementAttribute = 'data-sub-selection-restricting-element';
 /** Indicates that this helper has attached to this element */
@@ -431,7 +429,7 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
         return undefined;
     }
 
-    private applyElementRestriction(restrictingElement: HTMLElement, subselectionElement: HTMLElement): IRect | undefined {
+    private applyElementRestriction(restrictingElement: HTMLElement, subselectionElement: HTMLElement): IRect {
         const elementRect = restrictingElement.getBoundingClientRect();
         const rect: IRect = {
             top: elementRect.top,
@@ -626,25 +624,6 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
         this.updateOutlinesFromSubSelections(this.subSelections, true /*clearExistingOutlines*/, false /*suppressRender*/);
     }
 
-    public getLabelsFromSubSelections(subSelections: CustomVisualSubSelection[], attributeKeys: string[], separator: string = " "): string[] {
-        const elements = this.getElementsFromSubSelections(subSelections);
-        let result: string[] = [];
-        for (let element of elements) {
-            let label = "";
-            for (let key of attributeKeys) {
-                const attr = element.attributes.getNamedItem(key);
-                if (!!attr && !!attr.value) {
-                    label += attr.value + separator;
-                }
-            }
-            if (!label) {
-                result.push(label.trim());
-            }
-        }
-        return result;
-
-    }
-
     private setOutline(outline: SubSelectionRegionOutlineFragment, visibility: SubSelectionOutlineVisibility): void {
         const helperOutline: HelperSubSelectionRegionOutline = {
             ...outline,
@@ -761,10 +740,8 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
 
     public createVisualSubSelectionForSingleObject(createVisualSubSelectionArgs: CreateVisualSubSelectionFromObjectArgs): CustomVisualSubSelection {
         const { objectName, subSelectionType, displayName, showUI, selectionId, selectionOrigin, focusOrder, metadata } = createVisualSubSelectionArgs;
-        //const { top } = (target as HTMLElement)?.getBoundingClientRect() ?? {top: 0};
-        const origin = (selectionOrigin && subSelectionType in [SubSelectionStylesType.Text, SubSelectionStylesType.NumericText])
-            ? { ...selectionOrigin, offset: { x: 0, y: (selectionOrigin?.y - 0) * -1 } }
-            : selectionOrigin;
+        const useOfssetInSelection = selectionOrigin && subSelectionType in [SubSelectionStylesType.Text, SubSelectionStylesType.NumericText];
+        const origin = useOfssetInSelection ? { ...selectionOrigin, offset: { x: 0, y: (selectionOrigin?.y) * -1 } } : selectionOrigin;
         const visualSubSelection: CustomVisualSubSelection = {
             customVisualObjects: [{ objectName, selectionId: selectionId ?? undefined }],
             showUI,
@@ -822,9 +799,11 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
 
     private getSubSelectableElements(): HTMLElement[] {
         const hostElement = this.hostElement;
-        return this.host.selectAll<HTMLElement, unknown>(HtmlSubSelectableSelector).filter(function () {
-            const element = this;
-            return helperOwnsElement(hostElement, element);
-        }).nodes();
+        return this.host
+            .selectAll<HTMLElement, unknown>(HtmlSubSelectableSelector)
+            .filter(function () {
+                const element = this;
+                return helperOwnsElement(hostElement, element);
+            }).nodes();
     }
 }

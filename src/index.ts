@@ -12,7 +12,6 @@ import {
     SubSelectableDirectEdit,
     SubSelectableSubSelectedAttribute,
     SubSelectableUIAnchorAttribute,
-    SubSelectableRestrictOutlineOptionsAttribute,
     SubSelectableRestrictingElementAttribute,
     HtmlSubSelectionHelper
 } from "./HtmlSubSelectionHelper";
@@ -31,7 +30,6 @@ export {
     SubSelectableHideOutlineAttribute,
     SubSelectableObjectNameAttribute,
     SubSelectableRestrictingElementAttribute,
-    SubSelectableRestrictOutlineOptionsAttribute,
     SubSelectableSubSelectedAttribute,
     SubSelectableTypeAttribute,
     SubSelectableUIAnchorAttribute,
