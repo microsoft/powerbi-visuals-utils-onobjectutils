@@ -6,7 +6,6 @@ import { debounce, getObjectValues, groupArrayElements, isArrayEmpty, isEqual, g
 
 import CustomVisualSubSelection = powerbi.visuals.CustomVisualSubSelection;
 import GroupSubSelectionOutline = powerbi.visuals.GroupSubSelectionOutline;
-import HelperSubSelectionRegionOutline = powerbi.visuals.HelperSubSelectionRegionOutline
 import IPoint = powerbi.extensibility.IPoint;
 import ISelectionId = powerbi.visuals.ISelectionId
 import IVisualSubSelectionService = powerbi.extensibility.IVisualSubSelectionService
@@ -15,9 +14,11 @@ import SubSelectionOutlineRestrictionType = powerbi.visuals.SubSelectionOutlineR
 import SubSelectionOutlineType = powerbi.visuals.SubSelectionOutlineType;
 import SubSelectionOutlineVisibility = powerbi.visuals.SubSelectionOutlineVisibility;
 import SubSelectionRegionOutlineFragment = powerbi.visuals.SubSelectionRegionOutlineFragment;
-import SubSelectionRegionOutlineId = powerbi.visuals.SubSelectionRegionOutlineId;
 import SubSelectionStylesType = powerbi.visuals.SubSelectionStylesType;
+import SubSelectionRegionOutline = powerbi.visuals.SubSelectionRegionOutline;
+import SubSelectionRegionOutlineId = powerbi.visuals.SubSelectionRegionOutlineId;
 
+type HelperSubSelectionRegionOutline<TOutline extends SubSelectionRegionOutline = SubSelectionRegionOutline> = TOutline & { id: SubSelectionRegionOutlineId };
 const d3 = { select, selectAll };
 
 // Used on the sub-selectable element
@@ -247,7 +248,9 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
             this.subSelectionService.subSelect({
                 customVisualObjects: [],
                 selectionOrigin,
-                showUI
+                showUI,
+                displayName: '',
+                subSelectionType: SubSelectionStylesType.Shape
             });
             return;
         }
