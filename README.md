@@ -1,4 +1,4 @@
-# On-object utils - subselection helper (preview)
+# On-object utils
 
 The `HTMLSubSelectionHelper` provides an easy way for your Power BI custom visual to emit subselections to Power BI, get and render outlines.
 
