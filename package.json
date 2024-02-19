@@ -1,0 +1,17 @@
+{
+  "name": "powerbi-visuals-utils-onobjectformatting",
+  "version": "6.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/d3-selection": "^3.0.10",
+    "d3-selection": "^3.0.0",
+    "powerbi-visuals-api": "~5.1.0"
+  }
+}
