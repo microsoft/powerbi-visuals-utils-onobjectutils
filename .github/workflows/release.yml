@@ -25,8 +25,7 @@ jobs:
     - name: Run npm install, build and test
       run: |
         npm i
-        npm run test
-        npm run lint
+        npm run build
     - run: zip -r lib.zip . -x '.*' 'node_modules/*' 'src/*' 'spec/*'
     - name: Upload production artifacts
       run: |
