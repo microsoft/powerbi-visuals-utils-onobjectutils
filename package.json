@@ -2,10 +2,10 @@
   "name": "powerbi-visuals-utils-onobjectformatting",
   "version": "6.0.1",
   "description": "",
-  "main": "lib/src/index.js",
-  "module": "lib//src/index.js",
-  "jsnext:main": "lib/src/index.js",
-  "types": "lib/src/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "jsnext:main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Microsoft/powerbi-visuals-utils-onobjectutils.git"
