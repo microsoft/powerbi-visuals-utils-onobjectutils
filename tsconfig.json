@@ -9,6 +9,6 @@
     "experimentalDecorators": true,
     "declaration": true,
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "./lib",
   }
 }
