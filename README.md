@@ -1,9 +1,10 @@
-# On-object utils
-
-## Installation
+# Installation
+Run the following command to install the util:
 ```cmd
     npm i powerbi-visuals-utils-onobjectutils
 ```
+
+# On-object utils
 
 The `HTMLSubSelectionHelper` provides an easy way for your Power BI custom visual to emit subselections to Power BI, get and render outlines.
 
