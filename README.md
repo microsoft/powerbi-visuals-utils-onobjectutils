@@ -1,5 +1,10 @@
 # On-object utils
 
+## Installation
+```cmd
+    npm i powerbi-visuals-utils-onobjectutils
+```
+
 The `HTMLSubSelectionHelper` provides an easy way for your Power BI custom visual to emit subselections to Power BI, get and render outlines.
 
 `HTMLSubSelectionHelper` is a helper class intended to facilitate the creation and subsequent management of subselection outlines. It contains methods for finding subselectable elements.  
