@@ -19,6 +19,6 @@
   "dependencies": {
     "@types/d3-selection": "^3.0.10",
     "d3-selection": "^3.0.0",
-    "powerbi-visuals-api": "~5.8.0"
+    "powerbi-visuals-api": "^5.9.0"
   }
 }
