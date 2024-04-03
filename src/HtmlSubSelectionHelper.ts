@@ -511,7 +511,7 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
         d3.selectAll(subSelectables).each(
             function () {
                 let isSubSelected = false;
-
+                // eslint-disable-next-line
                 const element = this;
 
                 isSubSelected = isElementSubSelected(element, subSelections, selectionIdCallbackFn!);
@@ -537,7 +537,7 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
             SubSelectableSubSelectedAttribute,
             function () {
                 let isSubSelected = false;
-
+                // eslint-disable-next-line
                 const element = this;
                 isSubSelected = isElementSubSelected(element, subSelections, selectionIdCallbackFn!);
 
@@ -559,7 +559,7 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
         const isSubSelected = subSelections.some(subSelection => subSelection.customVisualObjects?.some(customVisualObject => {
             let selectorMatches = true;
             if (selectionIdCallbackFn && customVisualObject.selectionId) {
-                let otherSelectionId = selectionIdCallbackFn(element);
+                const otherSelectionId = selectionIdCallbackFn(element);
                 if (!equalsSelectionId(customVisualObject.selectionId, otherSelectionId)) {
                     selectorMatches = false;
                 }
@@ -683,7 +683,7 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
     }
 
     private getElementRegionOutlineId(selection: Selection<HTMLElement, unknown, any, unknown>): SubSelectionRegionOutlineId {
-        let outlineId = selection.attr(SubSelectableObjectNameAttribute);
+        const outlineId = selection.attr(SubSelectableObjectNameAttribute);
 
         let key = "";
         if (this.selectionIdCallback) {
@@ -805,6 +805,7 @@ export class HtmlSubSelectionHelper implements ISubSelectionHelper<HTMLElement, 
         return this.host
             .selectAll<HTMLElement, unknown>(HtmlSubSelectableSelector)
             .filter(function () {
+                // eslint-disable-next-line
                 const element = this;
                 return helperOwnsElement(hostElement, element);
             }).nodes();
