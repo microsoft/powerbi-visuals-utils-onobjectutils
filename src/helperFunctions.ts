@@ -78,6 +78,7 @@ export function debounce(func: any, delay: any) {
     let timeoutId;
 
     return function (...args) {
+        // eslint-disable-next-line
         const context = this;
 
         clearTimeout(timeoutId);
