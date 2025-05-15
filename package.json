@@ -1,7 +1,7 @@
 {
   "name": "powerbi-visuals-utils-onobjectutils",
-  "version": "6.0.2",
-  "description": "",
+  "version": "6.0.3",
+  "description": "Provides helper utilities to enable and manage sub-selection outlines in Power BI custom visuals, making it easier to define, render, and interact with subselectable elements",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
@@ -17,6 +17,10 @@
   },
   "author": "",
   "license": "MIT",
+  "homepage": "https://github.com/microsoft/powerbi-visuals-utils-onobjectutils#readme",
+  "bugs": {
+    "url": "https://github.com/microsoft/powerbi-visuals-utils-onobjectutils/issues"
+  },
   "dependencies": {
     "@types/d3-selection": "^3.0.10",
     "d3-selection": "^3.0.0",
