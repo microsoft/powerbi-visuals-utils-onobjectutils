@@ -4,6 +4,13 @@ Run the following command to install the util:
     npm i powerbi-visuals-utils-onobjectutils
 ```
 
+Starting with 7.0.0 the visual has to declare `powerbi-visuals-api` itself. It is no longer installed as a transitive dependency, and the published typings import from it, so the types will not resolve without it:
+```cmd
+    npm i -D powerbi-visuals-api@^5.11.1
+```
+
+The package is also published as ES2020 modules instead of CommonJS, so it has to be consumed from a build that supports ES modules; `require()` no longer resolves it.
+
 # On-object utils
 
 The `HTMLSubSelectionHelper` provides an easy way for your Power BI custom visual to emit subselections to Power BI, get and render outlines.

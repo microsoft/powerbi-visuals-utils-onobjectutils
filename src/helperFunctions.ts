@@ -13,7 +13,7 @@ export function groupArrayElements(array: HTMLElement[], func: (element: HTMLEle
         return {};
     }
     // Use reduce to iterate over the array and accumulate an object
-    return array.reduce((acc, cur) => {
+    return array.reduce<Record<string, HTMLElement[]>>((acc, cur) => {
         // Get the key by applying the function to the current element
         const key = func(cur);
         // If the key already exists in the accumulator, push the current element to the array
@@ -55,7 +55,8 @@ export function isEqual(value: any, other: any): boolean {
     return false;
 }
 
-export function isArrayEmpty(array: any[]): boolean {
+// `[]` is the empty tuple type, not an array type: it is what narrows the false branch to a non-empty `T[]` at the call sites.
+export function isArrayEmpty<T>(array: T[] | undefined | null): array is undefined | null | [] {
     if (!array || array.length === 0) {
         return true;
     }
@@ -74,10 +75,10 @@ export function getUniques<T>(array: T[], comparator: Comparator<T>): T[] {
     }, [] as T[]);
 }
 
-export function debounce(func: any, delay: any) {
-    let timeoutId;
+export function debounce(func: (...args: any[]) => void, delay: number) {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-    return function (...args) {
+    return function (this: unknown, ...args: unknown[]) {
         // eslint-disable-next-line
         const context = this;
 

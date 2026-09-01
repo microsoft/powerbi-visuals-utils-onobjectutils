@@ -1,35 +1,57 @@
 {
   "name": "powerbi-visuals-utils-onobjectutils",
-  "version": "6.0.3",
+  "version": "7.0.0",
   "description": "Provides helper utilities to enable and manage sub-selection outlines in Power BI custom visuals, making it easier to define, render, and interact with subselectable elements",
   "main": "lib/index.js",
   "module": "lib/index.js",
-  "jsnext:main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib/**/*",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Microsoft/powerbi-visuals-utils-onobjectutils.git"
   },
+  "keywords": [
+    "powerbi-visuals-utils"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "node -e \"require('fs').rmSync('lib', { recursive: true, force: true })\"",
     "build": "tsc",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:typecheck": "tsc -p test/tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
-  "author": "",
+  "author": "Microsoft",
   "license": "MIT",
   "homepage": "https://github.com/microsoft/powerbi-visuals-utils-onobjectutils#readme",
   "bugs": {
     "url": "https://github.com/microsoft/powerbi-visuals-utils-onobjectutils/issues"
   },
   "dependencies": {
-    "@types/d3-selection": "^3.0.10",
-    "d3-selection": "^3.0.0",
-    "powerbi-visuals-api": "^5.9.0"
+    "d3-selection": "^3.0.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "@typescript-eslint/parser": "^7.5.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-powerbi-visuals": "^0.8.1"
+    "@eslint/js": "^9.16.0",
+    "@types/d3-selection": "^3.0.11",
+    "@types/node": "^22.20.1",
+    "@vitest/browser": "^4.1.11",
+    "@vitest/browser-playwright": "^4.1.11",
+    "@vitest/coverage-v8": "^4.1.10",
+    "eslint": "^9.16.0",
+    "eslint-plugin-powerbi-visuals": "^1.1.1",
+    "playwright": "^1.62.1",
+    "powerbi-visuals-api": "^5.11.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.67.0",
+    "vitest": "^4.1.11"
   }
 }

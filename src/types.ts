@@ -90,7 +90,7 @@ export interface ISubSelectionHelper<TElement, TIdentifier = unknown> {
     /**
      * Gets all currently available subselectable elements
      */
-    getAllSubSelectables(): TIdentifier[];
+    getAllSubSelectables(filterType?: powerbi.visuals.SubSelectionStylesType): TIdentifier[];
 
     /**
      * Allows creation of custom visual subselections that don't have a DOMElement

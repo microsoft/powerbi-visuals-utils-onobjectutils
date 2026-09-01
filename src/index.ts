@@ -15,7 +15,7 @@ import {
     SubSelectableRestrictingElementAttribute,
     HtmlSubSelectionHelper
 } from "./HtmlSubSelectionHelper";
-import {HtmlSubselectionHelperArgs, SubSelectionElementData} from './types';
+import type { HtmlSubselectionHelperArgs, SubSelectionElementData } from './types';
 export {
     DirectEditPlaceholderClassAndSelector,
     DirectEditPlaceholderOutlineClassAndSelector,
@@ -23,7 +23,6 @@ export {
     HtmlSubSelectableClass,
     HtmlSubSelectableSelector,
     HtmlSubSelectionHelper,
-    HtmlSubselectionHelperArgs,
     SubSelectableAltObjectNameAttribute,
     SubSelectableDirectEdit,
     SubSelectableDisplayNameAttribute,
@@ -33,5 +32,8 @@ export {
     SubSelectableSubSelectedAttribute,
     SubSelectableTypeAttribute,
     SubSelectableUIAnchorAttribute,
+};
+export type {
+    HtmlSubselectionHelperArgs,
     SubSelectionElementData,
 };

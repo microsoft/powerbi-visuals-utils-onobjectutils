@@ -1,4 +1,8 @@
+.DS_Store
 .vs/
 node_modules/
 dist/
 lib/
+coverage/
+.tmp/
+*.log
