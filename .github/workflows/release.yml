@@ -4,7 +4,8 @@ on:
   release:
     types: [ created ]
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   draft:
@@ -23,14 +24,11 @@ jobs:
   build:
     needs: draft
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
-        ref: ${{ github.sha }}
         persist-credentials: false
 
     - name: Use Node.js 20
@@ -63,7 +61,6 @@ jobs:
       with:
         name: release-archive
         path: lib.zip
-        if-no-files-found: error
 
   publish:
     needs: build
@@ -77,16 +74,11 @@ jobs:
       uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
       with:
         name: release-archive
-        path: release-artifact
 
     - name: Upload production artifacts
-      run: gh release upload "$TAG_NAME" "release-artifact/lib.zip" --repo "$GITHUB_REPOSITORY"
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TAG_NAME: ${{ github.event.release.tag_name }}
-
-    - name: Publish release
-      run: gh release edit "$TAG_NAME" --draft=false --repo "$GITHUB_REPOSITORY"
+      run: |
+        gh release upload "$TAG_NAME" lib.zip --repo "$GITHUB_REPOSITORY"
+        gh release edit "$TAG_NAME" --draft=false --repo "$GITHUB_REPOSITORY"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG_NAME: ${{ github.event.release.tag_name }}

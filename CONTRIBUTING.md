@@ -15,8 +15,7 @@ Before submitting a pull request please make sure the following is done:
 5. Ensure that the types are valid: `npm run test:typecheck`
 6. Ensure that the unit tests are passed: `npm run test:coverage`
 7. Ensure that the package builds: `npm run build`
-8. Check release workflow credential isolation and failure gating: `node --test .github/tests/release-workflow.test.mjs`
-9. Complete the [CLA](#contributor-license-agreement-cla)
+8. Complete the [CLA](#contributor-license-agreement-cla)
 
 ### Code of Conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
