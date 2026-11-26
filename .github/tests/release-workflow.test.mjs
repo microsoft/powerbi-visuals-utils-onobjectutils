@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { URL } from "node:url";
 import { load } from "js-yaml";
 
 const workflow = load(readFileSync(new URL("../workflows/release.yml", import.meta.url), "utf8"));
