@@ -4,31 +4,40 @@ on:
   release:
     types: [ created ]
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
-  build:
+  draft:
     environment: automated-release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: Move release to draft
+      run: gh release edit "$TAG_NAME" --draft=true --repo "$GITHUB_REPOSITORY"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TAG_NAME: ${{ github.event.release.tag_name }}
+
+  build:
+    needs: draft
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      with:
+        ref: ${{ github.sha }}
+        persist-credentials: false
 
     - name: Use Node.js 20
       uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
       with:
         node-version: 20.x
         cache: 'npm'
-
-    - name: Move release to draft
-      run: gh release edit "$TAG_NAME" --draft=true
-      env:
-        TAG_NAME: ${{ github.event.release.tag_name }}
 
     - name: Install dependencies
       run: npm ci
@@ -49,9 +58,35 @@ jobs:
       run: |
         zip -r lib.zip lib *.md LICENSE package.json package-lock.json
 
+    - name: Transfer release archive
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      with:
+        name: release-archive
+        path: lib.zip
+        if-no-files-found: error
+
+  publish:
+    needs: build
+    environment: automated-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Download release archive
+      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+      with:
+        name: release-archive
+        path: release-artifact
+
     - name: Upload production artifacts
-      run: |
-        gh release upload "$TAG_NAME" "lib.zip"
-        gh release edit "$TAG_NAME" --draft=false
+      run: gh release upload "$TAG_NAME" "release-artifact/lib.zip" --repo "$GITHUB_REPOSITORY"
       env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TAG_NAME: ${{ github.event.release.tag_name }}
+
+    - name: Publish release
+      run: gh release edit "$TAG_NAME" --draft=false --repo "$GITHUB_REPOSITORY"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG_NAME: ${{ github.event.release.tag_name }}
